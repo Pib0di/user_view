@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_view/core/bloc/app_cubit.dart';
+import 'package:user_view/core/service/notification_service.dart';
 import 'package:user_view/ui/common/widgets/search.dart';
 import 'package:user_view/ui/pages/home/bloc/home_cubit.dart';
 import 'package:user_view/ui/pages/user/user_page.dart';
@@ -96,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (_, index) {
                                     final data = filteredUsers[index];
                                     return ListTile(
-                                      onTap: () => appRouter.pushClassNamed(UserPage, extra: data),
+                                      onTap: () {
+                                        NotificationService().showNotification();
+                                        appRouter.pushClassNamed(UserPage, extra: data);
+                                      },
                                       title: Text('${data.name}'),
                                       subtitle: Text('${data.email}'),
                                       leading: Icon(Icons.person),
